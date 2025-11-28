@@ -1,0 +1,833 @@
+:root {
+    --electric-border-color: #00BFFF;
+    /* Deep Sky Blue */
+    --electric-light-color: oklch(from var(--electric-border-color) l c h);
+    --gradient-color: oklch(from var(--electric-border-color) 0.3 calc(c / 2) h / 0.4);
+    --color-neutral-900: oklch(0.185 0 0);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* Ensure no scrolling is caused by children pushing past the edge */
+    overflow-x: hidden;
+    position: relative;
+}
+
+body {
+    background-color: #16151b;
+    overflow-x: hidden;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+/* ==========================
+Sticky Header
+=============================*/
+#mainHeader {
+    width: 100%;
+    transition: box-shadow 0.3s ease, top 0.3s ease;
+    z-index: 1000;
+}
+
+/* Sticky state */
+#mainHeader.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    background-color: #000000;
+}
+
+/* Spacer fills header height when fixed */
+#headerSpacer {
+    display: none;
+}
+
+/* ===================
+Contact Whatsapp
+====================== */
+.contact-whatsapp {
+    background-color: white;
+    color: green !important;
+    padding: 5px 15px;
+    border-radius: 100px;
+}
+
+.contact-whatsapp:hover {
+    background-color: #ececec;
+}
+
+/* Scroll */
+.left_side::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.right_side::-webkit-scrollbar {
+    background-color: #fff;
+    width: 4px;
+}
+
+.left_side::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.right_side::-webkit-scrollbar-track {
+    background-color: #EBEBEB;
+}
+
+.left_side::-webkit-scrollbar-track:hover,
+body::-webkit-scrollbar-track:hover,
+.right_side::-webkit-scrollbar-track {
+    background-color: #EBEBEB;
+}
+
+/* scrollbar itself */
+.left_side::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.right_side::-webkit-scrollbar-thumb {
+    background-color: #7E838B;
+    border-radius: 10px;
+}
+
+.home {
+    position: relative;
+}
+
+.cir1 {
+    width: 400px;
+    height: 400px;
+    background-color: #2b2a30;
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    top: -90px;
+    left: -90px;
+    z-index: -1;
+}
+
+.cir2 {
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    background-color: #6469bb88;
+    border-radius: 50%;
+    filter: blur(80px);
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+}
+
+
+/* ==================================== */
+/* 🚀 Existing NAV Styles (Large Screen) */
+/* ==================================== */
+
+nav {
+    color: white;
+    width: calc(100%-20px);
+    /* Changed justify-content to space-between for better spacing when hamburger is hidden */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: auto;
+    /* Removed gap from nav since space-between is used, or adjust as needed */
+    position: relative;
+    z-index: 10;
+    /* Ensure nav is on top */
+    /* border: 2px solid red; */
+}
+
+nav .logo {
+    padding-left: 30px;
+    font-family: "Playwrite CZ", cursive;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+/* We combine links, search, and icons into .nav-menu on large screens */
+.nav-menu {
+    display: flex;
+    /* Keep them horizontal */
+    align-items: center;
+    /* width: 90%; */
+    justify-content: space-around;
+    font-size: 14px;
+    gap: 18px;
+    padding-right: 10rem;
+    /* Added gap here for spacing between elements */
+}
+
+/* Search Bar */
+nav form {
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #7d7d80;
+}
+
+nav form input {
+    border: none;
+    background-color: transparent;
+    color: white;
+    width: 140px;
+}
+
+nav form button {
+    border: none;
+    background-color: transparent;
+}
+
+nav form button svg {
+    color: #7d7d80;
+}
+
+/* Links */
+.links {
+    /* Adjusted width and alignment for better flow within .nav-menu */
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    /* Use gap instead of justify-content: space-between if width is reduced */
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Icons */
+nav .icons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: #7d7d80;
+}
+
+/* 🍔 Hamburger Icon Base (Hidden on large screens) */
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 100;
+    /* Highest z-index to be clickable */
+}
+
+.hamburger-menu .bar {
+    display: block;
+    width: 20px;
+    height: 1px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    /* Smooth transition for X animation */
+    background-color: white;
+    /* Use white to match the navbar color */
+}
+
+/* ==================================== */
+/* 📱 Media Query (Small Screen Styles) */
+/* ==================================== */
+
+@media screen and (max-width: 768px) {
+
+    /* 1. Modify Nav Container for small screen */
+    nav {
+        /* Ensure the logo and hamburger button are spaced out */
+        justify-content: space-between;
+        padding: 10px 20px;
+        /* Add some side padding */
+    }
+
+    nav .logo {
+        font-size: 12px;
+        padding: 0;
+    }
+
+    /* 2. Show the Hamburger Icon */
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* 3. Hide Navigation Menu by default */
+    .nav-menu {
+        display: none;
+        /* Hidden by default */
+        flex-direction: column;
+        /* Stack items vertically */
+        align-items: flex-start;
+        /* Align contents to the left */
+
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%;
+        /* Position right below the navbar */
+
+        /* IMPORTANT: Choose a background color */
+        background-color: #1a1a1a;
+        /* Example dark background to match white text */
+
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        z-index: 50;
+        /* Above regular content, below hamburger icon */
+        padding: 15px 0;
+    }
+
+    /* 4. Style for the Active/Open Menu */
+    .nav-menu.active-menu {
+        display: flex;
+        /* Make the menu visible when active */
+    }
+
+    /* Adjust internal elements to stack properly */
+    .nav-menu .searchbar,
+    .nav-menu .links,
+    .nav-menu .icons {
+        width: 90%;
+        margin: 5px auto;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu .searchbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    nav form input {
+        width: 60%;
+    }
+
+    .nav-menu .links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    /* Ensure the search bar takes full width of its container and looks good */
+    nav form {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    /* === Hamburger to 'X' Animation Styles === */
+
+    /* 1. First Bar: Rotates and moves to form the top half of the 'X' */
+    .hamburger-menu.active-menu .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    /* 2. Second Bar: Hides completely */
+    .hamburger-menu.active-menu .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    /* 3. Third Bar: Rotates and moves to form the bottom half of the 'X' */
+    .hamburger-menu.active-menu .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+
+.long {
+    border: 1px solid #7d7d80;
+    position: absolute;
+    z-index: 3;
+    border-radius: 50px;
+}
+
+.long1 {
+    width: 60px;
+    height: 150px;
+    right: 6%;
+    top: 10%;
+}
+
+.long2 {
+    width: 60px;
+    height: 60px;
+    right: 15%;
+    top: 53%;
+}
+
+.long3 {
+    width: 150px;
+    height: 60px;
+    left: 15%;
+    top: 15%;
+}
+
+.long4 {
+    width: 80px;
+    height: 30px;
+    left: 50%;
+    top: 25%;
+}
+
+.long5 {
+    width: 30px;
+    height: 30px;
+    right: 3%;
+    bottom: 7%;
+}
+
+@media (max-width:991px) {
+
+    .long3,
+    .long2,
+    .long4,
+    .long5 {
+        visibility: hidden;
+    }
+}
+
+/* ===========================
+About Me 
+============================== */
+.heading {
+    font-size: 6vw;
+    text-align: center;
+}
+
+.sub-heading {
+    padding-left: 30px;
+    font-size: 3vw;
+    font-family: "Playwrite CZ", cursive;
+}
+
+.heading-name {
+    margin-top: 10px;
+    font-size: 2vw;
+    font-family: "Playwrite CZ", cursive;
+    text-align: center;
+}
+
+.heading-designation {
+    font-size: 1vw;
+    margin-top: 30px;
+    opacity: 0.4;
+    text-align: center;
+}
+
+@media (max-width:778px) {
+    .heading {
+        font-size: 36px;
+
+    }
+
+    .heading-name {
+        font-size: 18px;
+    }
+
+    .heading-designation {
+        font-size: 16px;
+    }
+
+    .sub-heading {
+        font-size: 22px;
+    }
+}
+
+.playwrite-cz {
+    font-family: "Playwrite CZ", cursive;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+/* ============================
+Profile Buttons
+===============================*/
+.screen-reader-text {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.icon {
+    font-style: normal;
+    font-size: 24px;
+}
+
+
+
+.nav {
+    list-style: none;
+    text-align: center;
+}
+
+.nav li {
+    position: relative;
+    display: inline-block;
+    margin-right: -4px;
+}
+
+.nav li:before {
+    content: "";
+    display: block;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    z-index: -1;
+}
+
+.nav a:link,
+.nav a:visited {
+    display: block;
+    text-decoration: none;
+    background-color: #f7f7f7;
+    background-image: -webkit-linear-gradient(top, #f7f7f7, #e7e7e7);
+    background-image: -moz-linear-gradient(top, #f7f7f7, #e7e7e7);
+    background-image: -ms-linear-gradient(top, #f7f7f7, #e7e7e7);
+    background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7);
+    color: #a7a7a7;
+    margin: 36px;
+    width: 44px;
+    height: 44px;
+    position: relative;
+    text-align: center;
+    line-height: 44px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
+    border: solid 1px transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav a:before {
+    content: "";
+    display: block;
+    background: #fff;
+    border-top: 2px solid #ddd;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    bottom: -5px;
+    right: -5px;
+    z-index: -1;
+    border-radius: 50%;
+    box-shadow: inset 0px 8px 48px #ddd;
+}
+
+.nav a:active {
+    box-shadow: 0px 3px 4px #aaa inset, 0px 2px 3px #fff;
+}
+
+.nav a:hover {
+    text-decoration: none;
+    color: #555;
+    background: #f5f5f5;
+}
+
+/* ====================
+KNOW MORE
+=======================*/
+.glow-on-hover {
+    height: 50px;
+    width: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 100px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 100px;
+}
+
+.glow-on-hover:active {
+    color: lightgray;
+}
+
+/* .glow-on-hover:active:after {
+    background: transparent;
+} */
+
+.glow-on-hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 100px;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* =========================
+Skills
+============================ */
+.skill-card {
+    margin: 20px 0;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, #2b2a30 0%, #272530 64%);
+    box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0,
+        inset 0 -1.01rem 0.2rem -1rem #0000, 0 -1.02rem 0.2rem -1rem #fff0,
+        0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3, 0 4px 4px 0 #0004, 0 0 0 1px #333;
+    width: 18rem;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 100px;
+    color: #fff;
+    padding: 10px;
+    flex-direction: column;
+    transition: all 0.4s ease-in-out, translate 0.4s ease-out;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+
+    &::before {
+        content: "";
+        display: block;
+        --offset: .8rem;
+        width: calc(100% + 2 * var(--offset));
+        height: calc(100% + 2 * var(--offset));
+        position: absolute;
+        left: calc(-1 * var(--offset));
+        right: calc(-1 * var(--offset));
+        top: calc(-1 * var(--offset));
+        bottom: calc(-1 * var(--offset));
+        margin: auto;
+        box-shadow: inset 0 0 0px 0.06rem #fff2;
+        border-radius: 100px;
+        --ax: 45px;
+        clip-path: polygon(var(--ax) 0,
+                0 0,
+                0 var(--ax),
+                var(--ax) var(--ax),
+                var(--ax) calc(100% - var(--ax)),
+                0 calc(100% - var(--ax)),
+                0 100%,
+                var(--ax) 100%,
+                var(--ax) calc(100% - var(--ax)),
+                calc(100% - var(--ax)) calc(100% - var(--ax)),
+                calc(100% - var(--ax)) 100%,
+                100% 100%,
+                100% calc(100% - var(--ax)),
+                calc(100% - var(--ax)) calc(100% - var(--ax)),
+                calc(100% - var(--ax)) var(--ax),
+                100% var(--ax),
+                100% 0,
+                calc(100% - var(--ax)) 0,
+                calc(100% - var(--ax)) var(--ax),
+                var(--ax) var(--ax));
+        transition: all 0.4s ease-in-out;
+    }
+
+    &:hover {
+        translate: 0 -0.2rem;
+    }
+
+    &:hover::before {
+        --offset: 0.5rem;
+        /* --ax: 8rem; */
+        border-radius: 100px;
+        box-shadow: inset 0 0 0 0.08rem #fff1;
+    }
+}
+
+/* =======================
+Experience
+==========================*/
+.project-title {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.project-description ul li {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* =======================
+Education
+==========================*/
+.svg-container {
+    position: absolute;
+}
+
+/* Card container */
+.card-container {
+    position: relative;
+    width: 400px;
+    height: 180px;
+}
+
+@media(max-width: 991px) {
+    .card-container {
+        width: 18rem !important;
+    }
+
+    .inner-container {
+        width: 18rem !important;
+    }
+}
+
+/* Inner container is now a positioning context */
+.inner-container {
+    position: relative;
+    width: 400px;
+    height: 180px;
+}
+
+/* Main card holds the stable, non-filtered content */
+.main-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Sits below the border effect */
+    background-color: var(--color-neutral-900);
+}
+
+.main-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* This container holds all animated border layers and gets the filter */
+.border-effect-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    /* Sits on top of the main card */
+    filter: url(#turbulent-displace);
+    pointer-events: none;
+    /* Allows clicking through to content if needed */
+}
+
+/* The main visible electric line */
+.electric-border {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 24px;
+    border: 3px solid var(--electric-border-color);
+}
+
+/* Glow effects for depth */
+.glow-layer-1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 24px;
+    border: 2px solid var(--electric-border-color);
+    filter: blur(2px);
+    opacity: 0.7;
+}
+
+.glow-layer-2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 24px;
+    border: 2px solid var(--electric-border-color);
+    filter: blur(4px);
+    opacity: 0.5;
+}
+
+/* Background glow for ambience */
+.background-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    filter: blur(32px);
+    transform: scale(1.1);
+    opacity: 0.4;
+    z-index: -1;
+    background: linear-gradient(-30deg,
+            var(--electric-light-color),
+            transparent);
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    justify-content: center;
+    height: 100%;
+}
+
+.content-container .title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}

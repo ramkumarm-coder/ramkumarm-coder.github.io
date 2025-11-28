@@ -1,0 +1,52 @@
+(function ($) {
+    "use strict";
+
+    $(document).ready(function () {
+        var progressPath = document.querySelector('.progress-wrap path');
+        var pathLength = progressPath.getTotalLength();
+
+        progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
+        progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+        progressPath.style.strokeDashoffset = pathLength;
+        progressPath.getBoundingClientRect();
+        progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
+
+        var updateProgress = function () {
+            var scroll = $(window).scrollTop();
+            var height = $(document).height() - $(window).height();
+            var progress = pathLength - (scroll * pathLength / height);
+            progressPath.style.strokeDashoffset = progress;
+        };
+
+        // Call once on load
+        updateProgress();
+
+        $(window).scroll(updateProgress);
+
+        var offset = 50;
+        var duration = 550;
+
+        var toggleProgressWrap = function () {
+            if ($(window).scrollTop() > offset) {
+                $('.progress-wrap').addClass('active-progress');
+            } else {
+                $('.progress-wrap').removeClass('active-progress');
+            }
+        };
+
+        // Call once on load
+        toggleProgressWrap();
+
+        $(window).on('scroll', toggleProgressWrap);
+
+        $('.progress-wrap').on('click', function (event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'   // native smooth scrolling
+            });
+            return false;
+        });
+    });
+
+})(jQuery);
