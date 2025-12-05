@@ -363,7 +363,7 @@ nav .icons {
     width: 60px;
     height: 60px;
     right: 15%;
-    top: 53%;
+    top: 51%;
 }
 
 .long3 {
@@ -377,7 +377,7 @@ nav .icons {
     width: 80px;
     height: 30px;
     left: 50%;
-    top: 25%;
+    top: 23%;
 }
 
 .long5 {
@@ -687,6 +687,10 @@ Skills
 /* =======================
 Experience
 ==========================*/
+.project-box {
+    color: white !important;
+}
+
 .project-title {
     margin-bottom: 10px;
     font-size: 16px;
